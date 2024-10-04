@@ -9,7 +9,7 @@ import os
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 mainhour_df = pd.read_csv(f"{script_dir}/mainhour_df.csv")
-mainday_df = pd.read_csv(f"{script_dir}/mainhour_df.csv")
+mainday_df = pd.read_csv(f"{script_dir}/mainday_df.csv")
 # Sidebar untuk tab
 st.set_page_config(layout="wide")  # Mengatur halaman agar lebar untuk ruang lebih
 # Menambahkan header untuk dashboard
