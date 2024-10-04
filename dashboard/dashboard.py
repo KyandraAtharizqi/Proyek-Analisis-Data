@@ -140,42 +140,36 @@ elif selected_tab == "Tampilan Data Harian":
     else:
         st.write("Tidak ada data yang tersedia untuk tanggal ini.")
     
-    # Tampilkan data cuaca dan keramaian
+    # Display data cuaca dan keramaian
     st.write("### Data Cuaca dan Keramaian")
-    relevant_columns = ['season', 'weathersit', 'cnt', 'cnt_group', 'temp', 'temp_group', 'hum', 'hum_group', 'windspeed', 'windspeed_group']
-    mainday_display = mainday_df[relevant_columns].head(1)
+    # Filter mainday_df berdasarkan tanggal
+    mainday_filtered = mainday_df[mainday_df['dteday'] == selected_date_str]
+    
+    # Check apakah data kosong
+    if not mainday_filtered.empty:
+        relevant_columns = ['season', 'weathersit', 'cnt', 'cnt_group', 'temp', 'temp_group', 'hum', 'hum_group', 'windspeed', 'windspeed_group']
+        mainday_display = mainday_filtered[relevant_columns].head(1)
 
-    # Displaying data in organized rows
-    for index, row in mainday_display.iterrows():
-
-        # First row: Musim dan Situasi Cuaca
-        col1, col2 = st.columns(2)
-        col1.metric(label="Musim", value=row['season'])
-
-        # Second row: Situasi Cuaca
-        col1 = st.columns(1)[0]  # Create one column to take the full width
-        col1.metric(label="Situasi Cuaca", value=row['weathersit'])
-
-        # Third row: Jumlah dan Tingkat Keramaian
-        col1, col2 = st.columns(2)
-        col1.metric(label="Jumlah User (cnt)", value=row['cnt'])
-        col2.metric(label="Tingkat Keramaian", value=row['cnt_group'])
-
-        # Fourth row: Temperatur and Tingkat Suhu
-        col1, col2 = st.columns(2)
-        col1.metric(label="Temperatur", value=row['temp'])
-        col2.metric(label="Tingkat Suhu", value=row['temp_group'])
-
-        # Fifth row: Kelembapan dan Tingkat Kelembapan
-        col1, col2 = st.columns(2)
-        col1.metric(label="Kelembapan", value=row['hum'])
-        col2.metric(label="Tingkat Kelembapan", value=row['hum_group'])
-
-        # Sixth row: Kecepatan Angin dan Tingkat Kecepatan
-        col1, col2 = st.columns(2)
-        col1.metric(label="Kecepatan Angin", value=row['windspeed'])
-        col2.metric(label="Tingkat Kecepatan", value=row['windspeed_group'])
-        st.markdown("---")
+        for index, row in mainday_display.iterrows():
+            col1, col2 = st.columns(2)
+            col1.metric(label="Musim", value=row['season'])
+            col1 = st.columns(1)[0]
+            col1.metric(label="Situasi Cuaca", value=row['weathersit'])
+            col1, col2 = st.columns(2)
+            col1.metric(label="Jumlah User (cnt)", value=row['cnt'])
+            col2.metric(label="Tingkat Keramaian", value=row['cnt_group'])
+            col1, col2 = st.columns(2)
+            col1.metric(label="Temperatur", value=row['temp'])
+            col2.metric(label="Tingkat Suhu", value=row['temp_group'])
+            col1, col2 = st.columns(2)
+            col1.metric(label="Kelembapan", value=row['hum'])
+            col2.metric(label="Tingkat Kelembapan", value=row['hum_group'])
+            col1, col2 = st.columns(2)
+            col1.metric(label="Kecepatan Angin", value=row['windspeed'])
+            col2.metric(label="Tingkat Kecepatan", value=row['windspeed_group'])
+            st.markdown("---")
+    else:
+        st.write("Tidak ada data cuaca dan keramaian yang tersedia untuk tanggal ini.")
 
 # Footer
 st.caption("Copyright © Rafi Kyandra Atharizqi 2024")
