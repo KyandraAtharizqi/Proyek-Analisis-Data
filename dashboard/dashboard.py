@@ -5,8 +5,8 @@ import seaborn as sns
 import numpy as np
 
 # Membaca dataset
-mainhour_df = pd.read_csv('dashboard\\mainhour_df.csv')
-mainday_df = pd.read_csv('dashboard\\mainday_df.csv')
+mainhour_df = pd.read_csv('mainhour_df.csv')
+mainday_df = pd.read_csv('mainday_df.csv')
 # Sidebar untuk tab
 st.set_page_config(layout="wide")  # Mengatur halaman agar lebar untuk ruang lebih
 # Menambahkan header untuk dashboard
